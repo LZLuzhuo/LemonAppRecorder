@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@color/dialog_content_bg" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@color/dialog_title_bg"
+        android:gravity="center"
+        android:text="@string/menu_dialog_statistics"
+        android:textSize="@dimen/app_add_titlesize" />
+
+    <ImageView
+        android:id="@+id/iv_statistics_cancel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignRight="@id/tv_title"
+        android:src="@mipmap/activity_home_add_cancel" />
+
+    <me.luzhuo.lemonapprecorder.widget.piechart.PieChartView
+        android:id="@+id/pcv_piechart_statistics"
+        android:layout_below="@id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="300dp" />
+
+    <TextView
+        android:id="@+id/tv_statistics_hint"
+        android:layout_below="@id/pcv_piechart_statistics"
+        android:layout_width="fill_parent"
+        android:layout_marginLeft="3dp"
+        android:layout_marginBottom="3dp"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

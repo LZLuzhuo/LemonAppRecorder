@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/menu"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/menu_bg"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/rl_item01"
+        android:layout_width="fill_parent"
+        android:layout_height="@dimen/activity_titile_height"
+        android:layout_alignParentTop="true"
+        android:background="@color/titlebar_gray" >
+
+        <ImageView
+            android:id="@+id/iv_menu_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="5dp"
+            android:src="@mipmap/menu_setting" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/iv_menu_icon"
+            android:text="设置"
+            android:textColor="@color/white"
+            android:textSize="@dimen/app_add_titlesize" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_menu_appicon"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_below="@id/rl_item01"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tv_menu_appversion"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_menu_appicon"
+        android:layout_centerHorizontal="true"
+        android:text="柠檬App记录器 1.0"
+        android:textColor="@color/titlebar_gray"
+        android:textSize="@dimen/app_add_textsize" />
+
+    <ListView
+        android:id="@+id/lv_menu_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="260dp"
+        android:layout_below="@id/tv_menu_appversion"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="15dp" >
+    </ListView>
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="5dp"
+        android:gravity="center_horizontal"
+        android:text="@string/copyright" />
+
+</RelativeLayout>

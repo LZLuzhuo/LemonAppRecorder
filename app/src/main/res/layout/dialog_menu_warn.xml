@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+    android:background="@color/dialog_content_bg" >
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dp"
+        android:background="@color/dialog_title_bg"
+        android:gravity="center"
+        android:text="@string/menu_backups_warn"
+        android:textSize="@dimen/app_add_titlesize" />
+
+    <ImageView
+        android:id="@+id/bt_menu_warn_cancel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignRight="@id/tv_title"
+        android:src="@mipmap/activity_home_add_cancel" />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_title"
+        android:layout_margin="10dp"
+        android:text="@string/menu_warn"
+        android:textSize="@dimen/app_add_textsize" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/text"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/bt_menu_warn_ok"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="@string/app_add_ok" />
+
+        <Button
+            android:id="@+id/bt_menu_warn_cancel1"
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="@string/menu_backups_cancel" />
+    </LinearLayout>
+
+</RelativeLayout>

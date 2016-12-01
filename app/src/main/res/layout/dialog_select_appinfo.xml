@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="fill_parent"
+    android:background="@color/dialog_content_bg" >
+
+    <TextView
+        android:id="@+id/tv_select_title"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:background="@color/dialog_title_bg"
+        android:gravity="center"
+        android:text="@string/app_select_title"
+        android:textSize="@dimen/app_add_titlesize" />
+
+    <ImageView
+        android:id="@+id/iv_select_cancel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignRight="@id/tv_select_title"
+        android:src="@mipmap/activity_home_add_cancel" />
+
+    <LinearLayout
+        android:id="@+id/ll_select_load"
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:layout_below="@id/tv_select_title"
+        android:layout_centerHorizontal="true"
+        android:orientation="horizontal" >
+
+        <ProgressBar
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center_vertical"
+            android:text="@string/load"
+            android:textSize="@dimen/app_add_textsize" />
+    </LinearLayout>
+
+    <ListView
+        android:id="@+id/lv_select_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_select_title" />
+
+</RelativeLayout>

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@color/dialog_content_bg" >
+
+    <me.luzhuo.lemonapprecorder.widget.numberprogressbar.NumberProgressBar
+        android:id="@+id/np_menu_bakcups_numberbar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp" />
+
+    <TextView
+        android:id="@+id/tv_menu_bakcups_hint"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/np_menu_bakcups_numberbar"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="正在初始化..." />
+
+    <LinearLayout
+        android:id="@+id/ll_menu_dialog_ok"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_menu_bakcups_hint"
+        android:gravity="center_vertical|center_horizontal"
+        android:visibility="gone" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/menu_dialog_backups_ok" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="完成" />
+    </LinearLayout>
+
+</RelativeLayout>

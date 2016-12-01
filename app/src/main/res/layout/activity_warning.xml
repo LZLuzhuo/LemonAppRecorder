@@ -1,0 +1,215 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:layout_width="300dip"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="#ededed" >
+
+        <TextView
+            android:id="@+id/tv_warning_textview"
+            android:textColor="@android:color/black"
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:background="@color/activity_title_bg"
+            android:gravity="center"
+            android:text="App记录已存在"
+            android:textSize="@dimen/app_add_titlesize" />
+
+        <ImageView
+            android:id="@+id/iv_warning_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignRight="@id/tv_warning_textview"
+            android:src="@mipmap/activity_home_add_cancel" />
+
+        <LinearLayout
+            android:id="@+id/ll_warning_linear"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_warning_textview"
+            android:orientation="horizontal" >
+
+            <ImageView
+                android:id="@+id/iv_warning_app_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:src="@mipmap/activity_home_add_apk_icon" />
+
+            <RelativeLayout
+                android:layout_width="0dp"
+                android:layout_height="90dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_weight="1" >
+
+                <TextView
+                    android:id="@+id/tv_warning_textview1"
+                    android:textColor="@android:color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/dialog_add_text_bg"
+                    android:text="@string/app_add_appname"
+                    android:textSize="@dimen/app_add_textsize" />
+
+                <TextView
+                    android:id="@+id/tv_warning_appname"
+                    android:textColor="@android:color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"
+                    android:paddingLeft="50dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/app_add_textsize" />
+
+                <TextView
+                    android:id="@+id/tv_warning_textview2"
+                    android:textColor="@android:color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_warning_textview1"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/dialog_add_text_bg"
+                    android:text="@string/app_add_packname"
+                    android:textSize="@dimen/app_add_textsize" />
+
+                <TextView
+                    android:id="@+id/tv_warning_packname"
+                    android:textColor="@android:color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_warning_textview1"
+                    android:layout_marginTop="3dp"
+                    android:paddingLeft="35dp"
+                    android:singleLine="true"
+                    android:textSize="@dimen/app_add_textsize" />
+
+                <TextView
+                    android:id="@+id/tv_warning_textview3"
+                    android:textColor="@android:color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_warning_textview2"
+                    android:layout_marginTop="3dp"
+                    android:background="@color/dialog_add_text_bg"
+                    android:text="@string/app_add_classify"
+                    android:textSize="@dimen/app_add_textsize" />
+
+                <TextView
+                    android:id="@+id/tv_warning_classify"
+                    android:textColor="@android:color/black"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/tv_warning_textview2"
+                    android:layout_marginTop="3dp"
+                    android:paddingLeft="35dp"
+                    android:singleLine="true"
+                    android:text="未知"
+                    android:textSize="@dimen/app_add_textsize" >
+                </TextView>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:layout_alignRight="@id/tv_warning_textview3"
+                    android:layout_below="@id/tv_warning_textview2"
+                    android:layout_marginTop="3dp"
+                    android:paddingLeft="35dp"
+                    android:src="@mipmap/activity_home_add_classify" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_warning_linearlayout"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_warning_linear"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical" >
+
+            <TextView
+                android:textColor="@android:color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="@string/app_add_remarks"
+                android:textSize="@dimen/app_add_textsize" />
+
+            <EditText
+                android:id="@+id/et_warning_remarks"
+                android:textColor="@android:color/black"
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:layout_marginLeft="10dp"
+                android:enabled="false"
+				android:editable="false"
+                android:background="@color/dialog_add_text_bg"
+                android:gravity="top|left"
+                android:padding="3dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_warning_linearlayout"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+            <LinearLayout
+                android:id="@+id/ll_warning_ok"
+                android:layout_margin="6dp"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal|center_vertical" >
+                
+                <ImageView android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/acitivity_warning_ok"/>
+                
+                <TextView android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:textSize="@dimen/activity_warning_textsize"
+                    android:text="保留应用"
+                    android:textColor="@android:color/black"/>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_margin="6dp"
+                android:id="@+id/ll_warning_delete"
+                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_horizontal" >
+                
+                 <ImageView android:layout_width="wrap_content"
+                    android:layout_height="20dp"
+                    android:src="@mipmap/acitivity_warning_delete"/>
+                
+                 <TextView android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="卸载应用"
+                    android:textSize="@dimen/activity_warning_textsize"
+                    android:textColor="@android:color/black"/>
+                
+            </LinearLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:src="@mipmap/ic_launcher" />
+
+</RelativeLayout>

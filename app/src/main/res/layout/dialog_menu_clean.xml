@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_menu_clean"
+    android:layout_width="300dip"
+    android:layout_height="wrap_content"
+    android:background="@color/dialog_content_bg"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="fill_parent"
+            android:layout_height="40dip"
+            android:background="@color/dialog_title_bg"
+            android:gravity="center"
+            android:text="@string/menu_select_clean"
+            android:textSize="@dimen/app_add_titlesize" />
+
+        <ImageView
+            android:id="@+id/bt_menu_clean_cancel"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_alignRight="@id/tv_title"
+            android:src="@mipmap/activity_home_add_cancel" />
+    </RelativeLayout>
+
+</LinearLayout>

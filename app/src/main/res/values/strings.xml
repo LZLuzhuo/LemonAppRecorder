@@ -1,0 +1,28 @@
+<resources>
+    <string name="app_name">柠檬App记录器</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="subString">极客工具</string>
+    <string name="app_add_remarks">备注:</string>
+    <string name="app_add_title">添加App信息</string>
+    <string name="app_select_title">选择App</string>
+    <string name="app_add_select">选择应用</string>
+    <string name="app_add_ok">确定</string>
+    <string name="app_add_appname">应用名:</string>
+    <string name="app_add_packname">包名:</string>
+    <string name="app_add_classify">分类:</string>
+    <string name="diy">自定义+</string>
+    <string name="ok">确定</string>
+    <string name="frag_watch_title">修改App信息</string>
+    <string name="frag_watch_ok">修改</string>
+    <string name="load">正在加载中,请稍后...</string>
+    <string name="copyright">Copyright © 2015 Luzhuo</string>
+    <string name="menu_dialog_location">选择图标保存位置</string>
+    <string name="menu_backups_warn">注意:</string>
+    <string name="menu_backups_cancel">取消</string>
+    <string name="menu_warn">"    注意:请谨慎使用导入数据/导出数据功能.在执行导入数据/导出数据期间请不要强制退出.导入和导出的数据存放于SD卡上的'/Lemon/AppRecorder'目录.执行导入操作时,应用数据将被清空."</string>
+    <string name="menu_clean">清理记录信息</string>
+    <string name="menu_select_clean">清理记录信息</string>
+    <string name="menu_dialog_backups">执行中...</string>
+    <string name="menu_dialog_statistics">数据统计</string>
+</resources>

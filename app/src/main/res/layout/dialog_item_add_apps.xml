@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:padding="5dp"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/lr_remarks"
+    android:gravity="center_horizontal"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/bt_ok"
+        android:layout_marginRight="2.5dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/app_add_ok" />
+
+    <Button
+        android:id="@+id/bt_select"
+        android:layout_marginLeft="2.5dp"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:text="@string/app_add_select" />
+</LinearLayout>

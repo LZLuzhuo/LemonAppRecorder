@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res/me.luzhuo.lemonapprecorder"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/activity_titile_height"
+        android:background="@color/titlebar_gray"
+        app:logo="@mipmap/ic_launcher"
+        app:subtitle="@string/subString"
+        app:subtitleTextColor="@color/subtitile_text_gray"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/titile_text_gray" />
+
+    <ImageView
+        android:id="@+id/iv_add_click"
+        android:layout_width="30dp"
+        android:layout_height="70dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:paddingRight="10dp"
+        android:paddingTop="50dp"
+        android:src="@mipmap/activity_home_add_click" />
+
+    <ListView
+        android:id="@+id/lv_fragment_listview"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/toolbar">
+    </ListView>
+
+</RelativeLayout>
