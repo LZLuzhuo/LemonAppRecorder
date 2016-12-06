@@ -82,7 +82,7 @@ public class CleanAppinfoDialog {
     }
 
     /**
-     * 设置数据
+     * 设置数据, 可以先展示,后设置数据
      * @param aps
      */
     public void setData(ArrayList<AppInfo> aps){

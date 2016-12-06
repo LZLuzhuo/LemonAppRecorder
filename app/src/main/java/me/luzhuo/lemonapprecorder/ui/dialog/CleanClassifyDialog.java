@@ -80,6 +80,10 @@ public class CleanClassifyDialog {
         lv_clean_classify.setAdapter(cleanClassifyAdapter);
     }
 
+    /**
+     * 设置数据, 可以先展示, 后设置数据.
+     * @param cls
+     */
     public void setData(ArrayList<String> cls){
         classifys.clear();
         classifys.addAll(cls);

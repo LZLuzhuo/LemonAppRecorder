@@ -32,6 +32,11 @@ import me.luzhuo.lemonapprecorder.callback.dialog.SelectAppInfoDiaglogCallBack;
 import me.luzhuo.lemonapprecorder.model.IAppInfos;
 import me.luzhuo.lemonapprecorder.model.impl.IAppinfosImpl;
 import me.luzhuo.lemonapprecorder.ui.adapter.SelectAppInfoAdapter;
+import rx.Observable;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func0;
+import rx.schedulers.Schedulers;
 
 /**
  * =================================================
@@ -101,11 +106,24 @@ public class SelectAppInfoDiaglog {
      * 更新应用数据
      */
     private void updateAppinfos(){
-        ArrayList<AppInfo> appinfos = iAppInfos.queryAppInfosFilter();
-        ll_select_load.setVisibility(View.GONE);
-        appinfosFilter.clear();
-        appinfosFilter.addAll(appinfos);
-        selectAdapter.notifyDataSetChanged();
+        // RxJava
+        Observable.defer(new Func0<Observable<ArrayList<AppInfo>>>() {
+            @Override
+            public Observable<ArrayList<AppInfo>> call() {
+                return Observable.just(iAppInfos.queryAppInfosFilter());
+            }
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<ArrayList<AppInfo>>() {
+            @Override
+            public void call(ArrayList<AppInfo> appInfos) {
+                ll_select_load.setVisibility(View.GONE);
+                appinfosFilter.clear();
+                appinfosFilter.addAll(appInfos);
+                selectAdapter.notifyDataSetChanged();
+            }
+        });
     }
 
     @OnClick({R.id.iv_select_cancel})

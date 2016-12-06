@@ -18,6 +18,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
+import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -28,6 +29,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +56,17 @@ import me.luzhuo.lemonapprecorder.ui.fragment.MenuFragment;
 import me.luzhuo.lemonapprecorder.ui.view.IMenuView;
 import me.luzhuo.lemonapprecorder.utils.FileUtil;
 import me.luzhuo.lemonapprecorder.utils.LemonUtils;
+import rx.Observable;
+import rx.Subscriber;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.functions.Action1;
+import rx.functions.Func0;
+import rx.functions.Func1;
+import rx.schedulers.Schedulers;
+
+import static android.R.id.list;
+import static android.content.ContentValues.TAG;
+import static android.media.CamcorderProfile.get;
 
 /**
  * =================================================
@@ -140,98 +153,316 @@ public class MenuPersenter {
      * 导入数据
      */
     public void importData() {
-        // TODO: 2016/11/19 RXJava
         // 如果文件不存在
         if(!IDataSerializationImpl.apps.exists()){
             iMenuView.showProgressError("资源文件不存在!");
             return;
         }
 
-        // 删除SD卡上的 和 手机存储里的所有 图标 数据
-        // 删除SD卡上的图标
-        iDataSerialization.deleteFilesForDirectory(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES));
-        // 删除手机存储里的图标 // /data/data/youPackageName/files
-        iDataSerialization.deleteFilesForDirectory(context.getFilesDir());
+        // RXJava
+        Observable.just(true)
+        .observeOn(Schedulers.io())
+        .map(new Func1<Boolean, Boolean>() {
+            @Override
+            public Boolean call(Boolean s) {
 
-        // 删除表
-        iAppInfos.deleteAllAppInfos();
-        iAppInfos.deleteAllClassifys();
+                // 删除SD卡上的 和 手机存储里的所有 图标 数据
+                // 删除SD卡上的图标
+                iDataSerialization.deleteFilesForDirectory(context.getExternalFilesDir(Environment.DIRECTORY_PICTURES));
+                // 删除手机存储里的图标 // /data/data/youPackageName/files
+                iDataSerialization.deleteFilesForDirectory(context.getFilesDir());
 
-        iMenuView.showProgressInit(IDataSerializationImpl.taskName[3]);
-        // 读取classify文件并解析成list
-        List<String> list = iDataSerialization.loadClassifyForFile(IDataSerializationImpl.classify);
-        if(list == null){
-            iMenuView.showProgressError(IDataSerializationImpl.taskName[6]);
-            return;
-        }else{
-            iMenuView.setProgressMax(list.size(), IDataSerializationImpl.taskName[4]);
-        }
+                // 删除表
+                iAppInfos.deleteAllAppInfos();
+                iAppInfos.deleteAllClassifys();
 
-        // classify表中插入数据
-        insertClassify(list);
+                return s;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<Boolean, Boolean>() {
+            @Override
+            public Boolean call(Boolean s) {
 
-        iMenuView.showProgressInit(IDataSerializationImpl.taskName[3]);
-        // 读取app文件并解析成list
-        List<AppInfo> listapp = iDataSerialization.loadAppInfosForFile(IDataSerializationImpl.apps);
+                iMenuView.showProgressInit(IDataSerializationImpl.taskName[3]);
+                return s;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<Boolean, List<String>>() {
+            @Override
+            public List<String> call(Boolean s) {
 
-        if(listapp == null){
-            iMenuView.showProgressError(IDataSerializationImpl.taskName[6]);
-            return;
-        }else{
-            iMenuView.setProgressMax(list.size(), IDataSerializationImpl.taskName[4]);
-        }
+                // 读取classify文件并解析成list
+                List<String> list = iDataSerialization.loadClassifyForFile(IDataSerializationImpl.classify);
 
-        // app表中插入数据
-        insertApp(listapp);
+                return list;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<List<String>, List<String>>() {
+            @Override
+            public List<String> call(List<String> list) {
 
-        iMenuView.setProgressMax(listapp.size(), IDataSerializationImpl.taskName[2]);
-        // 拷贝图片
-        copyImportImage(listapp);
+                if(list == null){
+                    iMenuView.showProgressError(IDataSerializationImpl.taskName[6]);
 
-        iMenuView.showProgressComplete();
+                    throw new NullPointerException(IDataSerializationImpl.taskName[6]);
+                }else{
+                    iMenuView.setProgressMax(list.size(), IDataSerializationImpl.taskName[4]);
+                }
 
-        // 导入数据完成后,刷新首页的应用信息列表
-        refreshHomeAppinfoList();
+                return list;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<List<String>, Boolean>() {
+            @Override
+            public Boolean call(List<String> list) {
+
+                // classify表中插入数据
+                insertClassify(list);
+
+                return true;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<Boolean, Boolean>() {
+            @Override
+            public Boolean call(Boolean s) {
+
+                iMenuView.showProgressInit(IDataSerializationImpl.taskName[3]);
+
+                return s;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<Boolean, List<AppInfo>>() {
+            @Override
+            public List<AppInfo> call(Boolean s) {
+
+                // 读取app文件并解析成list
+                List<AppInfo> listapp = iDataSerialization.loadAppInfosForFile(IDataSerializationImpl.apps);
+
+                return listapp;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<List<AppInfo>, List<AppInfo>>() {
+            @Override
+            public List<AppInfo> call(List<AppInfo> listapp) {
+
+                if(listapp == null){
+                    iMenuView.showProgressError(IDataSerializationImpl.taskName[6]);
+                    throw new NullPointerException(IDataSerializationImpl.taskName[6]);
+                }else{
+                    iMenuView.setProgressMax(listapp.size(), IDataSerializationImpl.taskName[4]);
+                }
+
+                return listapp;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<List<AppInfo>, List<AppInfo>>() {
+            @Override
+            public List<AppInfo> call(List<AppInfo> listapp) {
+
+                // app表中插入数据
+                insertApp(listapp);
+
+                return listapp;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<List<AppInfo>, List<AppInfo>>() {
+            @Override
+            public List<AppInfo> call(List<AppInfo> listapp) {
+
+                iMenuView.setProgressMax(listapp.size(), IDataSerializationImpl.taskName[2]);
+
+                return listapp;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<List<AppInfo>, Boolean>() {
+            @Override
+            public Boolean call(List<AppInfo> listapp) {
+
+                // 拷贝图片
+                copyImportImage(listapp);
+
+                return true;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Subscriber<Boolean>() {
+            @Override
+            public void onCompleted() { }
+            @Override
+            public void onError(Throwable e) {
+
+                iMenuView.showProgressError("错误!请重试!");
+                e.printStackTrace();
+            }
+            @Override
+            public void onNext(Boolean s) {
+
+                iMenuView.showProgressComplete();
+
+                // 导入数据完成后,刷新首页的应用信息列表
+                refreshHomeAppinfoList();
+            }
+        });
     }
 
     /**
      * 导出数据
      */
     public void exportData() {
-        // TODO: 2016/11/19 RXJava
-        // 创建文件夹
-        createFile();
+        // RXJava
+        Observable.just(true)
+        .observeOn(Schedulers.io())
+        .map(new Func1<Boolean, ArrayList<String>>() {
+            @Override
+            public ArrayList<String> call(Boolean s) {
 
-        // 数据库查询classify生成list
-        ArrayList<String> classifyList = iAppInfos.queryAllClassifys();
+                // 创建文件夹
+                createFile();
 
-        iMenuView.showProgressInit(IDataSerializationImpl.taskName[1]);
+                // 数据库查询classify生成list
+                ArrayList<String> classifyList = iAppInfos.queryAllClassifys();
 
-        // 把classifyList中的数据生成Json字符串,并写入文件
-        boolean sucessClassify = iDataSerialization.writeClassifyToFile(classifyList, IDataSerializationImpl.classify);
-        if(!sucessClassify) {
-            iMenuView.showProgressError("向文件中写入分类信息失败!");
-            return;
+                return classifyList;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<ArrayList<String>, ArrayList<String>>() {
+            @Override
+            public ArrayList<String> call(ArrayList<String> classifyList) {
+
+                iMenuView.showProgressInit(IDataSerializationImpl.taskName[1]);
+
+                return classifyList;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<ArrayList<String>, Boolean>() {
+            @Override
+            public Boolean call(ArrayList<String> classifyList) {
+
+                // 把classifyList中的数据生成Json字符串,并写入文件
+                boolean sucessClassify = iDataSerialization.writeClassifyToFile(classifyList, IDataSerializationImpl.classify);
+
+                return sucessClassify;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<Boolean, Boolean>() {
+            @Override
+            public Boolean call(Boolean sucessClassify) {
+
+                if(!sucessClassify) {
+                    iMenuView.showProgressError("向文件中写入分类信息失败!");
+                    throw new RuntimeException("向文件中写入分类信息失败!");
+                }
+
+                return true;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<Boolean, ArrayList<AppInfo>>() {
+            @Override
+            public ArrayList<AppInfo> call(Boolean s) {
+
+                // 查询所有app信息
+                ArrayList<AppInfo> appList = iAppInfos.queryAllAppInfos();
+
+                return appList;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<ArrayList<AppInfo>, ArrayList<AppInfo>>() {
+            @Override
+            public ArrayList<AppInfo> call(ArrayList<AppInfo> appList) {
+
+                iMenuView.showProgressInit(IDataSerializationImpl.taskName[1]);
+
+                return appList;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<ArrayList<AppInfo>, ArrayList<Object>>() {
+            @Override
+            public ArrayList<Object> call(ArrayList<AppInfo> appList) {
+
+                // 把appList中的数据生成Json字符串,并写入文件
+                boolean sucessAppinfo = iDataSerialization.writeAppinfoToFile(appList, IDataSerializationImpl.apps);
+
+                ArrayList<Object> tempList = new ArrayList<>();
+                tempList.add(sucessAppinfo);
+                tempList.add(appList);
+
+                return tempList;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .map(new Func1<ArrayList<Object>, ArrayList<AppInfo>>() {
+            @Override
+            public ArrayList<AppInfo> call(ArrayList<Object> tempList) {
+
+                if(!(Boolean)(tempList.get(0))){
+                    iMenuView.showProgressError("向文件中写入应用信息失败!");
+                    throw new RuntimeException("向文件中写入应用信息失败!");
+                }
+
+                ArrayList<AppInfo> appList = (ArrayList<AppInfo>)(tempList.get(1));
+                iMenuView.setProgressMax(appList.size(), IDataSerializationImpl.taskName[2]);
+
+                return appList;
+            }
+        })
+        .observeOn(Schedulers.io())
+        .map(new Func1<ArrayList<AppInfo>, Boolean>() {
+            @Override
+            public Boolean call(ArrayList<AppInfo> appList) {
+
+                // 拷贝图片
+                copyExportImage(appList);
+
+                return true;
+            }
+        })
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Subscriber<Boolean>() {
+            @Override
+            public void onCompleted() { }
+            @Override
+            public void onError(Throwable e) {
+
+                iMenuView.showProgressError("错误!请重试!");
+                e.printStackTrace();
+            }
+            @Override
+            public void onNext(Boolean s) {
+
+                iMenuView.showProgressComplete();
+            }
+        });
+    }
+
+    /**
+     * 在UI线程更新进度
+     * @param progress
+     */
+    private void setProgressOnUI(final int progress){
+        if(iMenuView instanceof MenuFragment){
+            ((MenuFragment)iMenuView).getActivity().runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    iMenuView.setProgress(progress);
+                }
+            });
         }
-
-        // 查询所有app信息
-        ArrayList<AppInfo> appList = iAppInfos.queryAllAppInfos();
-
-        iMenuView.showProgressInit(IDataSerializationImpl.taskName[1]);
-
-        // 把appList中的数据生成Json字符串,并写入文件
-        boolean sucessAppinfo = iDataSerialization.writeAppinfoToFile(appList, IDataSerializationImpl.apps);
-        if(!sucessAppinfo){
-            iMenuView.showProgressError("向文件中写入应用信息失败!");
-            return;
-        }
-
-        iMenuView.setProgressMax(appList.size(), IDataSerializationImpl.taskName[2]);
-
-        // 拷贝图片
-        copyExportImage(appList);
-
-        iMenuView.showProgressComplete();
     }
 
     /**
@@ -243,8 +474,7 @@ public class MenuPersenter {
         for (AppInfo appinfo : listapp) {
             File iconPath = FileUtil.getIconFile(context, appinfo);
             iDataSerialization.copyFile(new File(IDataSerializationImpl.icons, iconPath.getName()), iconPath);
-            iMenuView.setProgress(progress);
-            progress++;
+            setProgressOnUI(++progress);
         }
     }
 
@@ -257,8 +487,7 @@ public class MenuPersenter {
         for (AppInfo appinfo : listapp) {
             File iconpath = FileUtil.getIconFile(context, appinfo);
             iDataSerialization.copyFile(iconpath, new File(IDataSerializationImpl.icons, iconpath.getName()));
-            iMenuView.setProgress(progress);
-            progress++;
+            setProgressOnUI(++progress);
         }
     }
 
@@ -270,8 +499,8 @@ public class MenuPersenter {
         int progress = 0;
         for (AppInfo appinfo : listapp) {
             iAppInfos.addAppinfo(appinfo);
-            iMenuView.setProgress(progress);
-            progress++;
+            setProgressOnUI(++progress);
+
         }
     }
 
@@ -280,11 +509,10 @@ public class MenuPersenter {
      * @param list
      */
     private void insertClassify(List<String> list) {
-        int progress = 0;
+        int progress = 1;
         for (String classify : list) {
             iAppInfos.addClassify(classify);
-            iMenuView.setProgress(progress);
-            progress++;
+            setProgressOnUI(++progress);
         }
     }
 
@@ -323,11 +551,23 @@ public class MenuPersenter {
      */
     private void cleanClassify() {
         cleanClassifyDialog = new CleanClassifyDialog(context, cleanClassifyCallback);
-
-        // TODO: 2016/11/19 RXJava异步查询数据
-        cleanClassifyDialog.setData(iAppInfos.queryAllClassifys());
-
         cleanClassifyDialog.show();
+
+        // RXJava异步查询数据
+        Observable.defer(new Func0<Observable<ArrayList<String>>>() {
+            @Override
+            public Observable<ArrayList<String>> call() {
+                return Observable.just(iAppInfos.queryAllClassifys());
+            }
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<ArrayList<String>>() {
+            @Override
+            public void call(ArrayList<String> classifys) {
+                cleanClassifyDialog.setData(classifys);
+            }
+        });
     }
     
     CleanClassifyDialogCallBack cleanClassifyCallback = new CleanClassifyDialogCallBack() {
@@ -341,7 +581,6 @@ public class MenuPersenter {
                 cleanClassifyDialog.removeList(position);
                 iAppInfos.deleteClassify(content);
             }
-            cleanClassifyDialog.dismiss();
         }
 
         @Override
@@ -352,8 +591,23 @@ public class MenuPersenter {
 
     private void cleanAppInfo() {
         cleanAppinfoDialog = new CleanAppinfoDialog(context, cleanAppinfoCallback);
-        cleanAppinfoDialog.setData(iAppInfos.queryAllAppInfos());
         cleanAppinfoDialog.show();
+
+        // RXJava异步查询数据
+        Observable.defer(new Func0<Observable<ArrayList<AppInfo>>>() {
+            @Override
+            public Observable<ArrayList<AppInfo>> call() {
+                return Observable.just(iAppInfos.queryAllAppInfos());
+            }
+        })
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(new Action1<ArrayList<AppInfo>>() {
+            @Override
+            public void call(ArrayList<AppInfo> appInfos) {
+                cleanAppinfoDialog.setData(appInfos);
+            }
+        });
     }
 
     /**
@@ -367,17 +621,17 @@ public class MenuPersenter {
     CleanAppinfoDialogCallBack cleanAppinfoCallback = new CleanAppinfoDialogCallBack() {
         @Override
         public void onCleanButton(int position, AppInfo appInfo) {
-            // 删除图片
-            File file = FileUtil.getIconFile(context, appInfo);
-            if(file == null) return;
-            if(file.exists()) file.delete(); // 删除文件
-
             // 删除应用信息, 删除 集合 和 数据库 中的应用数据
             cleanAppinfoDialog.removeList(position);
             iAppInfos.deleteAppInfo(appInfo);
 
             // 更新首页数据
             refreshHomeAppinfoList();
+
+            // 删除图片
+            File file = FileUtil.getIconFile(context, appInfo);
+            if(file == null) return;
+            if(file.exists()) file.delete(); // 删除文件
         }
 
         @Override
