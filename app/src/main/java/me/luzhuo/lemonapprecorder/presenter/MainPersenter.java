@@ -7,9 +7,6 @@ import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
 import com.jeremyfeinstein.slidingmenu.lib.app.SlidingFragmentActivity;
 
 import me.luzhuo.lemonapprecorder.R;
-import me.luzhuo.lemonapprecorder.model.IAppInfos;
-import me.luzhuo.lemonapprecorder.model.impl.IAppinfosImpl;
-import me.luzhuo.lemonapprecorder.ui.dialog.AppDetailDialog;
 import me.luzhuo.lemonapprecorder.ui.fragment.HomeFragment;
 import me.luzhuo.lemonapprecorder.ui.fragment.MenuFragment;
 import me.luzhuo.lemonapprecorder.ui.view.IMainView;
@@ -37,14 +34,11 @@ public class MainPersenter {
 	private SlidingFragmentActivity sfa;
 
 	private SlidingMenu sm;
-	private AppDetailDialog appDetailDialog;
-	private IAppInfos iAppInfos;
 
 	public MainPersenter(IMainView iMainView){
         this.iMainView = iMainView;
 		this.context = (Context)iMainView;
 		this.sfa = (SlidingFragmentActivity) iMainView;
-		iAppInfos = new IAppinfosImpl(context);
 	}
 
 	/**

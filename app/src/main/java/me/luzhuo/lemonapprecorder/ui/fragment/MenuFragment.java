@@ -32,6 +32,7 @@ import me.luzhuo.lemonapprecorder.presenter.MenuPersenter;
 import me.luzhuo.lemonapprecorder.ui.dialog.ProgressDialog;
 import me.luzhuo.lemonapprecorder.ui.dialog.WarnDialog;
 import me.luzhuo.lemonapprecorder.ui.view.IMenuView;
+import me.luzhuo.lemonapprecorder.utils.StatusBarUtils;
 
 /**
  * =================================================
@@ -64,6 +65,7 @@ public class MenuFragment extends BaseFragment implements IMenuView {
 	@Override
 	public View initView(LayoutInflater inflater) {
 		View view = inflater.inflate(R.layout.fragment_menu, null);
+		StatusBarUtils.setStatusBarViewHeight(getContext(), view.findViewById(R.id.statusbar));
 		unbinder = ButterKnife.bind(this, view);
 		return view;
 	}

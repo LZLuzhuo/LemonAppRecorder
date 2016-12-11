@@ -3,15 +3,21 @@
     android:id="@+id/menu"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/menu_bg"
-    android:orientation="vertical" >
+    android:background="@mipmap/menu_bg" >
+
+    <View
+        android:id="@+id/statusbar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/colorPrimary"
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/rl_item01"
         android:layout_width="fill_parent"
         android:layout_height="@dimen/activity_titile_height"
-        android:layout_alignParentTop="true"
-        android:background="@color/titlebar_gray" >
+        android:background="@color/titlebar_gray"
+        android:layout_below="@id/statusbar">
 
         <ImageView
             android:id="@+id/iv_menu_icon"

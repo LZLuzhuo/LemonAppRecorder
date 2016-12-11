@@ -40,6 +40,7 @@ import me.luzhuo.lemonapprecorder.presenter.HomePersenter;
 import me.luzhuo.lemonapprecorder.ui.dialog.AppDetailDialog;
 import me.luzhuo.lemonapprecorder.ui.view.IHomeView;
 import me.luzhuo.lemonapprecorder.utils.LemonUtils;
+import me.luzhuo.lemonapprecorder.utils.StatusBarUtils;
 
 /**
  * =================================================
@@ -70,6 +71,7 @@ public class HomeFragment extends BaseFragment implements IHomeView {
 	@Override
 	public View initView(LayoutInflater inflater) {
 		View view = inflater.inflate(R.layout.fragment_apps, null);
+		StatusBarUtils.setStatusBarViewHeight(getContext(), view.findViewById(R.id.statusbar));
 		unbinder = ButterKnife.bind(this, view);
 		EventBus.getDefault().register(this);
 		return view;

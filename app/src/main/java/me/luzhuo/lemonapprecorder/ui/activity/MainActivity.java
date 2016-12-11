@@ -32,6 +32,7 @@ import me.luzhuo.lemonapprecorder.app.AppManager;
 import me.luzhuo.lemonapprecorder.presenter.MainPersenter;
 import me.luzhuo.lemonapprecorder.ui.dialog.AppDetailDialog;
 import me.luzhuo.lemonapprecorder.ui.view.IMainView;
+import me.luzhuo.lemonapprecorder.utils.StatusBarUtils;
 
 /**
  * =================================================
@@ -64,6 +65,8 @@ public class MainActivity extends SlidingFragmentActivity implements IMainView {
     }
 
     private void initData() {
+        StatusBarUtils.setTranslucentStatus(this);
+
         // 初始化SlidingMenu
         homePersenter.initSlidingMenu();
     }

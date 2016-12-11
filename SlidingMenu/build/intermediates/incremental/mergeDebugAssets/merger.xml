@@ -1,2 +1,2 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merger version="3"><dataSet config="main"><source path="C:\Code\Android\LemonAppRecorder\SlidingMenu\assets"/><source path="C:\Code\Android\LemonAppRecorder\SlidingMenu\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Code\Android\LemonAppRecorder\SlidingMenu\src\debug\assets"/></dataSet></merger>
+<merger version="3"><dataSet config="main"><source path="C:\Code\PersonalProject\Android\LemonAppRecorder\SlidingMenu\assets"/><source path="C:\Code\PersonalProject\Android\LemonAppRecorder\SlidingMenu\build\generated\assets\shaders\debug"/></dataSet><dataSet config="debug"><source path="C:\Code\PersonalProject\Android\LemonAppRecorder\SlidingMenu\src\debug\assets"/></dataSet></merger>

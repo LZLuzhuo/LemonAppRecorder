@@ -8,5 +8,5 @@
     <dimen name="app_add_titlesize">20sp</dimen>
     <dimen name="app_add_textsize">15sp</dimen>
     <dimen name="activity_warning_textsize">18sp</dimen>
-    <dimen name="activity_titile_height">60dp</dimen>
+    <dimen name="activity_titile_height">80dp</dimen>
 </resources>

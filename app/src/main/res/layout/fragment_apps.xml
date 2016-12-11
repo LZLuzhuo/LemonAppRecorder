@@ -1,28 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res/me.luzhuo.lemonapprecorder"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="@mipmap/activity_home_bg" >
+
+    <View
+        android:id="@+id/statusbar"
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="@color/colorPrimary"
+        android:visibility="gone" />
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="@dimen/activity_titile_height"
-        android:background="@color/titlebar_gray"
+        android:background="@color/colorPrimary"
         app:logo="@mipmap/ic_launcher"
         app:subtitle="@string/subString"
         app:subtitleTextColor="@color/subtitile_text_gray"
         app:title="@string/app_name"
-        app:titleTextColor="@color/titile_text_gray" />
+        app:titleTextColor="@color/titile_text_gray"
+        android:layout_below="@id/statusbar"/>
 
     <ImageView
         android:id="@+id/iv_add_click"
         android:layout_width="30dp"
-        android:layout_height="70dp"
+        android:layout_height="30dp"
         android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:paddingRight="10dp"
-        android:paddingTop="50dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginTop="-15dp"
+        android:layout_below="@id/toolbar"
         android:src="@mipmap/activity_home_add_click" />
 
     <ListView
