@@ -53,7 +53,7 @@
 > - 对已经记录的应用再次安装时,弹出提示
 
 ## 下载
-#### [应用宝(腾讯)](http://android.myapp.com/myapp/detail.htm?apkName=com.luzhuo.lemon.lemonapprecorder)
+#### [应用宝(腾讯)](http://android.myapp.com/myapp/detail.htm?apkName=me.luzhuo.lemonapprecorder)
 
 ## 关于作者
 
