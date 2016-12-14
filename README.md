@@ -1,6 +1,6 @@
 #LemonAppRecorder (柠檬APP记录器)
 ---
-> - 该应用使用了MVP架构, 集成了RxJava, BusEvent, 以及对于沉浸式状态栏的处理(gif软件坏了,所以以下动画都是旧图).
+> - 该应用使用了MVP架构, 集成了RxJava, BusEvent, 以及对于沉浸式状态栏的处理.
 
 ## 简介:
 > - 柠檬App记录器,这是一个Geek工具.  
@@ -35,7 +35,7 @@
 > - 如果存在App记录,则要先删除掉才能清理;
 
 #### 清理App信息
-![](/screenshotr/LemonAppRecorder7.gif)
+![](/screenshot/LemonAppRecorder7.gif)
 
 ### 图标保存位置
 ![](/screenshot/LemonAppRecorder8.gif)

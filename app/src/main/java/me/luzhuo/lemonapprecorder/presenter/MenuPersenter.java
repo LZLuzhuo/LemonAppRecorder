@@ -542,7 +542,6 @@ public class MenuPersenter {
             }else if(position == 1){ // 清理App记录信息
                 cleanAppInfo();
             }
-            cleanDialog.dismiss();
         }
     };
 

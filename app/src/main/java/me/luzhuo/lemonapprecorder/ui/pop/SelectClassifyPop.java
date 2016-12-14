@@ -121,6 +121,9 @@ public class SelectClassifyPop extends PopupWindow {
 
 			// 刷新数据
 			updateClassify();
+
+			// 直接返回用户的选择
+			if(callBack != null) callBack.onSelectClassify(text);
 			classifyDialog.dismiss();
 		}
 	};
