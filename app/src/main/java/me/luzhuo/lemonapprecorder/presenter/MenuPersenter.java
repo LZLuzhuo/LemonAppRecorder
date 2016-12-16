@@ -19,6 +19,7 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -205,8 +206,6 @@ public class MenuPersenter {
             public List<String> call(List<String> list) {
 
                 if(list == null){
-                    iMenuView.showProgressError(IDataSerializationImpl.taskName[6]);
-
                     throw new NullPointerException(IDataSerializationImpl.taskName[6]);
                 }else{
                     iMenuView.setProgressMax(list.size(), IDataSerializationImpl.taskName[4]);
@@ -253,7 +252,6 @@ public class MenuPersenter {
             public List<AppInfo> call(List<AppInfo> listapp) {
 
                 if(listapp == null){
-                    iMenuView.showProgressError(IDataSerializationImpl.taskName[6]);
                     throw new NullPointerException(IDataSerializationImpl.taskName[6]);
                 }else{
                     iMenuView.setProgressMax(listapp.size(), IDataSerializationImpl.taskName[4]);
@@ -300,8 +298,8 @@ public class MenuPersenter {
             public void onCompleted() { }
             @Override
             public void onError(Throwable e) {
-
-                iMenuView.showProgressError("错误!请重试!");
+                String errStr = e.getMessage();
+                iMenuView.showProgressError(TextUtils.isEmpty(errStr) ? "错误!请重试!" : errStr);
                 e.printStackTrace();
             }
             @Override
@@ -362,7 +360,6 @@ public class MenuPersenter {
             public Boolean call(Boolean sucessClassify) {
 
                 if(!sucessClassify) {
-                    iMenuView.showProgressError("向文件中写入分类信息失败!");
                     throw new RuntimeException("向文件中写入分类信息失败!");
                 }
 
@@ -411,7 +408,6 @@ public class MenuPersenter {
             public ArrayList<AppInfo> call(ArrayList<Object> tempList) {
 
                 if(!(Boolean)(tempList.get(0))){
-                    iMenuView.showProgressError("向文件中写入应用信息失败!");
                     throw new RuntimeException("向文件中写入应用信息失败!");
                 }
 
@@ -438,8 +434,8 @@ public class MenuPersenter {
             public void onCompleted() { }
             @Override
             public void onError(Throwable e) {
-
-                iMenuView.showProgressError("错误!请重试!");
+                String errStr = e.getMessage();
+                iMenuView.showProgressError(TextUtils.isEmpty(errStr) ? "错误!请重试!" : errStr);
                 e.printStackTrace();
             }
             @Override
