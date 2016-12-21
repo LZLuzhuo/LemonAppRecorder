@@ -7,3 +7,8 @@
 /build
 /captures
 .externalNativeBuild
+
+/SlidingMenu/build
+/SlidingMenu/*.iml
+/xCLCharts/build
+/xCLCharts/*.iml
