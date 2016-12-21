@@ -47,7 +47,7 @@ public interface IDataSerialization {
     /**
      * 删除某个目录下的所有文件
      */
-    void deleteFilesForDirectory(File Directory);
+    void deleteFilesForDirectory(File directory);
 
     /**
      * 读取classify文件并解析成list

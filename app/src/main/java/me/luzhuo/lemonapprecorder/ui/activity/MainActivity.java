@@ -14,8 +14,10 @@
  */
 package me.luzhuo.lemonapprecorder.ui.activity;
 
+import android.Manifest;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.Toast;
 
@@ -33,6 +35,7 @@ import me.luzhuo.lemonapprecorder.presenter.MainPersenter;
 import me.luzhuo.lemonapprecorder.ui.dialog.AppDetailDialog;
 import me.luzhuo.lemonapprecorder.ui.view.IMainView;
 import me.luzhuo.lemonapprecorder.utils.StatusBarUtils;
+import permissions.dispatcher.NeedsPermission;
 
 /**
  * =================================================

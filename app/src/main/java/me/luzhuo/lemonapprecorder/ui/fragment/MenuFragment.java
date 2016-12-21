@@ -14,7 +14,9 @@
  */
 package me.luzhuo.lemonapprecorder.ui.fragment;
 
+import android.Manifest;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ListView;
@@ -33,6 +35,9 @@ import me.luzhuo.lemonapprecorder.ui.dialog.ProgressDialog;
 import me.luzhuo.lemonapprecorder.ui.dialog.WarnDialog;
 import me.luzhuo.lemonapprecorder.ui.view.IMenuView;
 import me.luzhuo.lemonapprecorder.utils.StatusBarUtils;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.OnPermissionDenied;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * =================================================
@@ -46,11 +51,13 @@ import me.luzhuo.lemonapprecorder.utils.StatusBarUtils;
  * Description: 菜单
  * <p>
  * Revision History:
+ * 		1. 2016.12.21 添加导入导出数据时, 获取存储运行时权限.
  * <p>
  * Copyright: Copyright 2016 Luzhuo. All rights reserved.
  * <p>
  * =================================================
  **/
+@RuntimePermissions
 public class MenuFragment extends BaseFragment implements IMenuView {
 	@BindView(R.id.tv_menu_appversion)
 	TextView tv_menu_appversion;
@@ -151,14 +158,36 @@ public class MenuFragment extends BaseFragment implements IMenuView {
 
 			if(warntype == WarnDialog.WarnType.ImportWarn){
 				// 导入数据的警告处理
-				menuPersenter.importData();
+				MenuFragmentPermissionsDispatcher.runImportDataWithCheck(MenuFragment.this); // 导入数据的6.0运行时存储权限的处理
 
 			}else if(warntype == WarnDialog.WarnType.ExportWarn){
 				// 导出数据的警告处理
-				menuPersenter.exportData();
+				MenuFragmentPermissionsDispatcher.runExportDataWithCheck(MenuFragment.this); // 导出数据的6.0运行时存储权限的处理
 			}
 		}
 	};
 	// ====== WarnDialog ======
+
+	// ====== 6.0 运行时权限请求 ======
+	public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+		super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+		MenuFragmentPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
+	}
+
+	@NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+	void runImportData() {
+		menuPersenter.importData();
+	}
+
+	@NeedsPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
+	void runExportData() {
+		menuPersenter.exportData();
+	}
+
+	@OnPermissionDenied(Manifest.permission.READ_EXTERNAL_STORAGE)
+	void onOnPermissionDenied() {
+		showProgressError("用户拒绝获取存储权限!");
+	}
+	// ====== 6.0 运行时权限请求 ======
 
 }

@@ -96,9 +96,9 @@ public class IDataSerializationImpl implements IDataSerialization {
     }
 
     @Override
-    public void deleteFilesForDirectory(File Directory) {
-        if(Directory.exists()){
-            File[] sdFiles = Directory.listFiles();
+    public void deleteFilesForDirectory(File directory) {
+        if(directory.exists()){
+            File[] sdFiles = directory.listFiles();
             for (File f : sdFiles) {
                 if(f.exists() && f.isFile()) f.delete();
             }
