@@ -16,6 +16,7 @@ package me.luzhuo.lemonapprecorder.app;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * =================================================
@@ -34,7 +35,7 @@ import android.os.Bundle;
  * <p>
  * =================================================
  **/
-public class BaseActivity extends Activity {
+public class BaseActivity extends AppCompatActivity {
 
 	@Override
 	protected void onCreate(Bundle bundle) {

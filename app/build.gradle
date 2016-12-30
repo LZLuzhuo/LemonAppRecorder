@@ -8,9 +8,11 @@ android {
         applicationId "me.luzhuo.lemonapprecorder"
         minSdkVersion 10
         targetSdkVersion 24
-        versionCode 5
-        versionName "2.4"
+        versionCode 6
+        versionName "2.5"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        vectorDrawables.useSupportLibrary = true
     }
     buildTypes {
         release {

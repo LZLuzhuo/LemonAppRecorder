@@ -8,9 +8,8 @@
 
     <ImageView
         android:id="@+id/menu_icon"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
-        android:src="@mipmap/menu_clean_1" />
+        android:layout_width="22dp"
+        android:layout_height="22dp" />
 
     <TextView
         android:id="@+id/menu_button"

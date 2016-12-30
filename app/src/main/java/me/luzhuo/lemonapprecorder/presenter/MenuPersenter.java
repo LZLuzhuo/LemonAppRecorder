@@ -93,7 +93,7 @@ public class MenuPersenter {
     private IAppInfos iAppInfos;
     private IDataSerialization iDataSerialization;
 
-    private static int[] menuIcon = new int[]{R.mipmap.menu_item_import,R.mipmap.menu_item_export,R.mipmap.menu_item_clean,R.mipmap.menu_item_location,R.mipmap.menu_item_statistics};//图标
+    private static int[] menuIcon = new int[]{R.drawable.menu_item_import,R.drawable.menu_item_export,R.drawable.menu_item_clean,R.drawable.menu_item_location,R.drawable.menu_item_statistics};//图标
     private static String[] menuString = new String[]{"导入数据","导出数据","清理数据","图标保存位置","统计数据"}; //对应文字
 
     private MenuAdapter menuAdapter;

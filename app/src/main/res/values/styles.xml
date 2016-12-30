@@ -25,7 +25,7 @@
     <style name="AppTheme" parent="AppTheme.Base" />
 
     <!-- Warning theme. -->
-    <style name="Warning" parent="Theme.AppCompat">
+    <style name="Warning" parent="AppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:windowFrame">@null</item>
         <item name="android:windowNoTitle">true</item>
