@@ -85,6 +85,7 @@ public class IAppinfosImpl implements IAppInfos {
             }
         }
         appInfoCursor.close();
+        db.close();
 
         return appinfos;
     }
@@ -127,6 +128,7 @@ public class IAppinfosImpl implements IAppInfos {
             }
             classifyCursor.close();
         }
+        db.close();
         return appinfos;
     }
 
@@ -142,7 +144,8 @@ public class IAppinfosImpl implements IAppInfos {
 
         int count = db.update(TABLE_APP_TABLENAME, initialValues, LemonOpenHelper.TABLE_APP_APPPACKNAME + " = ?", new String[]{appInfo.packName});
 
-        return true;
+        db.close();
+        return count != -1 ? true : false;
     }
 
     @Override
@@ -161,7 +164,8 @@ public class IAppinfosImpl implements IAppInfos {
 
         long id = db.insert(TABLE_APP_TABLENAME, null, initialValues);
 
-        return true;
+        db.close();
+        return id != -1 ? true : false;
     }
 
     @Override
@@ -183,6 +187,8 @@ public class IAppinfosImpl implements IAppInfos {
             appInfo.date = cursor.getLong(cursor.getColumnIndex(LemonOpenHelper.TABLE_APP_DATE));
         }
         cursor.close();
+
+        db.close();
         return true;
     }
 
@@ -202,6 +208,7 @@ public class IAppinfosImpl implements IAppInfos {
 
         classifyCursor.close();
 
+        db.close();
         return classifys;
     }
 
@@ -213,8 +220,11 @@ public class IAppinfosImpl implements IAppInfos {
 
         Cursor cursor = db.query(TABLE_CLASSIFY_TABLENAME, null, "classifyName = ?", new String[]{classify}, null, null, null);
 
-        if(cursor != null && cursor.getCount() > 0) return true;
-        else return false;
+        boolean isExist = false;
+        if(cursor != null && cursor.getCount() > 0) isExist = true;
+
+        db.close();
+        return isExist;
     }
 
     @Override
@@ -226,7 +236,8 @@ public class IAppinfosImpl implements IAppInfos {
         initialValues.put(LemonOpenHelper.TABLE_CLASSIFY_NAME, classify);
         long id = db.insert(TABLE_CLASSIFY_TABLENAME, null, initialValues);
 
-        return true;
+        db.close();
+        return id != -1 ? true : false;
     }
 
     @Override
@@ -253,6 +264,7 @@ public class IAppinfosImpl implements IAppInfos {
         }
         cursor.close();
 
+        db.close();
         return appinfos;
     }
 
@@ -322,6 +334,7 @@ public class IAppinfosImpl implements IAppInfos {
         appDatasCount.total = itemCursor.getLong(0);
         itemCursor.close();
 
+        db.close();
         return appDatasCount;
     }
 
@@ -339,6 +352,8 @@ public class IAppinfosImpl implements IAppInfos {
         if(!db.isOpen()) return;
 
         int count = db.delete(TABLE_CLASSIFY_TABLENAME, LemonOpenHelper.TABLE_CLASSIFY_NAME + " = ? ", new String[]{classify});
+
+        db.close();
     }
 
     @Override
@@ -347,6 +362,8 @@ public class IAppinfosImpl implements IAppInfos {
         if(!db.isOpen()) return;
 
         int count = db.delete(TABLE_APP_TABLENAME, null, null);
+
+        db.close();
     }
 
     @Override
@@ -355,6 +372,8 @@ public class IAppinfosImpl implements IAppInfos {
         if(!db.isOpen()) return;
 
         int count = db.delete(TABLE_CLASSIFY_TABLENAME, null, null);
+
+        db.close();
     }
 
     @Override
@@ -363,7 +382,11 @@ public class IAppinfosImpl implements IAppInfos {
         if(!db.isOpen()) return true;
 
         Cursor cursor = db.query(TABLE_APP_TABLENAME, null, LemonOpenHelper.TABLE_APP_CLASSIFY+ " = ? ", new String[]{classify}, null, null, null);
-        if(cursor != null && cursor.getCount() > 0) return true;
-        else return false;
+
+        boolean isHava = false;
+        if(cursor != null && cursor.getCount() > 0) isHava = true;
+
+        db.close();
+        return isHava;
     }
 }

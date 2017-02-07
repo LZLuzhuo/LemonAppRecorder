@@ -171,6 +171,7 @@ public class AppDetailDialog {
             }
 
             appInfo.classify = tv_classify.getText().toString().trim(); // 分类是可以单独选的
+            appInfo.remarks = et_remarks.getText().toString().trim(); // 选择 / 切换应用信息, 不改变备注信息
             setAppInfo(appInfo);
             selectDialog.dismiss();
         }
